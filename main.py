@@ -6,6 +6,7 @@
 #   "fastapi.responses",
 #   "python-dateutil",
 #   "requests",
+#   "numpy"
 # ]
 # ///
 from fastapi import FastAPI, Request
@@ -14,15 +15,26 @@ from resp import send_request
 from exec import execute
 app = FastAPI()
 
+class email:
+    def __init__(self, email):
+        self.email = email
+    def __str__(self):
+        return self.email
 
 @app.get("/read")
 async def get_data(path:str):
+    path='.'+path
     try:
-        with open(path, "r") as file:
+        with open(path, "r", encoding="utf-8") as file:
             content = file.read()
-        return JSONResponse(content={"path": path}, status_code=200)
-    except FileNotFoundError:
-        return JSONResponse(content={"error": ""}, status_code=404)
+            content = "".join(content.splitlines()).strip()
+        try:
+            op=eval(content)
+            return JSONResponse(content=op, status_code=200)
+        except:
+            return JSONResponse(content=content, status_code=200)
+    except Exception as e: 
+        return JSONResponse(content={"error": str(e)}, status_code=500)
    
 @app.post("/run")
 async def post_data(task:str):

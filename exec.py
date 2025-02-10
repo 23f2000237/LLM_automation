@@ -1,4 +1,4 @@
-from phaseA import sort_array, count_weekday_occurrences, write_recent_first_lines, create_data, format_data
+from phaseA import sort_array, count_weekday_occurrences, write_recent_first_lines, create_data, format_data, extract_sender_email, generate_markdown_index
 
 def execute(func,args):
     if func=='sort_array':
@@ -11,5 +11,7 @@ def execute(func,args):
         create_data(args['path'],args['email'])
     elif func=='format_data':
         format_data(args['path'],args['version'])
-    else:
-        print('Function not found')
+    elif func=='extract_sender_email':
+        extract_sender_email(args['inputfile'],args['outputfile'])
+    elif func=='generate_markdown_index':
+        generate_markdown_index(args['directory'],args['output_file'])

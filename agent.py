@@ -85,7 +85,7 @@ funtion_tools=[
                     "type":"string",
                     "description":"The first target in the prompt"
                 },
-                "secomd_target":{
+                "second_target":{
                     "type":"string",
                     "description":"The second target in the prompt"
                 },
@@ -99,4 +99,149 @@ funtion_tools=[
         }
         }
     },
+    {
+        "type": "function",
+        "function":{
+        "name":"write_recent_first_lines",
+        "description": "This function will take the input directory path, output file path, and number of files as input and write the first line of the most recent files in the directory to the output file",
+        "parameters":{
+            "type":"object",
+            "properties":{
+                "input_dir":{
+                    "type":"string",
+                    "description":"The path to the input directory"
+                },
+                "output_file":{
+                    "type":"string",
+                    "description":"The path to the output file"
+                },
+                "num_files":{
+                    "type":"integer",
+                    "description":"The number of files in the prompt"
+                }
+        },
+        "additionalProperties": False,
+        "required": ["input_dir","output_file","num_files"]
+        }
+        }
+    },
+    {
+    "type": "function",
+    "function":{
+    "name": "extract_sender_email",
+    "description": "Extracts the sender's email from an input file and writes it to an output file.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "inputfile": {
+                "type": "string",
+                "description": "The path to the input file containing the email message."
+            },
+            "outputfile": {
+                "type": "string",
+                "description": "The path to the output file where the extracted email will be written."
+            }
+        },
+        "additionalProperties": False,
+        "required": ["inputfile", "outputfile"],
+    }
+}
+    },
+    {
+        "type": "function",
+        "function":{
+            "name": "generate_markdown_index",
+            "description": "Generates an index file mapping markdown file names to titles.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "directory": {
+                        "type": "string",
+                        "description": "The directory containing markdown files."
+                    },
+                    "output_file": {
+                        "type": "string",
+                        "description": "The path to the output file where the index will be written."
+                    }
+                },
+                "additionalProperties": False,
+                "required": ["directory", "output_file"],
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function":{
+            "name":"card_ocr",
+            "description": "This function will take the input image path and output file path as input and extract the credit card number from the image",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "inputimage":{
+                        "type":"string",
+                        "description":"The path to the input image"
+                    },
+                    "outputfile":{
+                        "type":"string",
+                        "description":"The path to the output file"
+                    }
+            },
+            "additionalProperties": False,
+            "required": ["inputimage","outputfile"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function":{
+            "name":"similar_comments",
+            "description": "This function will take the input file path and output file path as input and find two similar comments in the input file and write them to the output file",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "inputfile":{
+                        "type":"string",
+                        "description":"The path to the input file"
+                    },
+                    "outputfile":{
+                        "type":"string",
+                        "description":"The path to the output file"
+                    }
+            },
+            "additionalProperties": False,
+            "required": ["inputfile","outputfile"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function":{
+        "name":"sql_query",
+        "description":"This function will take the database file path, table name, ticket type, and output file path as input and query the database to find the total sales of the ticket type and write into the output file",
+        "parameters":{
+            "type":"object",
+            "properties":{
+                "database":{
+                    "type":"string",
+                    "description":"The path to the database file"
+                },
+                "table":{
+                    "type":"string",
+                    "description":"The table name in the prompt"
+                },
+                "type":{
+                    "type":"string",
+                    "description":"The ticket type in the prompt"
+                },
+                "outputfile":{
+                    "type":"string",
+                    "description":"The path to the output file"
+                }
+
+        },
+        "additionalProperties": False,
+        "required": ["database","table","type","outputfile"]
+        }
+        }
+    }
 ]   
