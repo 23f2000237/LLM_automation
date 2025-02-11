@@ -11,15 +11,18 @@
 # ///
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from resp import send_request
 from exec import execute
 app = FastAPI()
 
-class email:
-    def __init__(self, email):
-        self.email = email
-    def __str__(self):
-        return self.email
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change this to specific domains for better security
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 @app.get("/read")
 async def get_data(path:str):
