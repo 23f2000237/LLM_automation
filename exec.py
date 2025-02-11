@@ -1,4 +1,4 @@
-from phaseA import sort_array, count_weekday_occurrences, write_recent_first_lines, create_data, format_data, extract_sender_email, generate_markdown_index
+from phaseA import sort_array, count_weekday_occurrences, write_recent_first_lines, create_data, format_data, extract_sender_email, generate_markdown_index,card_ocr,similar_comments,sql_query
 
 def execute(func,args):
     if func=='sort_array':
@@ -15,3 +15,9 @@ def execute(func,args):
         extract_sender_email(args['inputfile'],args['outputfile'])
     elif func=='generate_markdown_index':
         generate_markdown_index(args['directory'],args['output_file'])
+    elif func=='card_ocr':
+        card_ocr(args['inputimage'],args['outputfile'])
+    elif func=='similar_comments':
+        similar_comments(args['inputfile'],args['outputfile'])
+    elif func=='sql_query':
+        sql_query(args['database'],args['table'],args['type'],args['outputfile'])
