@@ -1,6 +1,6 @@
 import subprocess
 from datetime import datetime
-#from dateutil.parser import parse
+from dateutil.parser import parse
 import json
 import os
 import requests
@@ -124,8 +124,9 @@ def card_ocr(inputimage,outputfile):
     print(req.json())
 
 def similar_comments(inputfile,outputfile):
-    inputfile = os.path.abspath('.'+inputfile)
-    outputfile = os.path.abspath('.'+outputfile)
+    inputfile = '.'+inputfile
+    outputfile = '.'+outputfile
+    print(outputfile)
     comments=open(inputfile).read().splitlines()
     n=len(comments)
     max_val=0
@@ -147,11 +148,12 @@ def similar_comments(inputfile,outputfile):
     with open(outputfile, "w", encoding="utf-8") as file:
         file.write(comments[max_i]+'\n' +comments[max_j])
 
-def sql_query(database,table,type,outputfile):
+def sql_query(database,table,Type,outputfile):
     conn=sqlite3.connect(database)
     outputfile=os.path.abspath('.'+outputfile)
     cursor=conn.cursor()
-    q='select sum(price*units) from {table} where lower(trim(type))="{type}"'.format(table=table,type=type)
+    Type=Type.lower()
+    q='select sum(price*units) from {table} where lower(trim(type))="{Type}"'.format(table=table,Type=Type)
     cursor.execute(q)
     result=cursor.fetchone()[0]
     with open(outputfile,"w",encoding="utf-8") as file:

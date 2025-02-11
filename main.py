@@ -30,10 +30,17 @@ async def get_data(path:str):
             content = "".join(content.splitlines()).strip()
         try:
             op=eval(content)
-            return JSONResponse(content=op, status_code=200)
+            return op
         except:
-            return JSONResponse(content=content, status_code=200)
-    except Exception as e: 
+            return content
+        #try:
+        #    op=eval(content)
+        #    return JSONResponse(content=op, status_code=200)
+        #except:
+        #    return JSONResponse(content=content, status_code=200)
+    #except Exception as e: 
+    #    return JSONResponse(content={"error": str(e)}, status_code=500)
+    except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
    
 @app.post("/run")
