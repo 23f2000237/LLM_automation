@@ -1,8 +1,9 @@
 import requests
 import json
+import os
 from agent import funtion_tools
 url='https://aiproxy.sanand.workers.dev/openai/v1/chat/completions'
-token='eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIzZjIwMDAyMzdAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.tjKXBiC47bZVi3r-PCbHZd0cMXLRPz-1OjnA_HSB33k'
+token=os.getenv("AI_PROXY_TOKEN") 
 headers={
     "Authorization":f"Bearer {token}",
     "Content-Type":"application/json"
