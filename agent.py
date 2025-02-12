@@ -243,5 +243,163 @@ funtion_tools=[
         "required": ["database","table","type","outputfile"]
         }
         }
+    },{
+        "type": "function",
+        "function":{
+            "name":"fetch_api",
+            "description":"This function will take the input url, parameters, and save path as input and fetch the API response and write it to the save path",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "url":{
+                        "type":"string",
+                        "description":"The url in the prompt"
+                    },
+                    "parameters":{
+                        "type":"object",
+                        "description":"The optional query parameters in the prompt",
+                        "properties": {}
+                    },
+                    "save_path":{
+                        "type":"string",
+                        "description":"The path to the save path"
+                    }
+            },
+            "additionalProperties": False,
+            "required": ["url","save_path"]
+            }
+        }
+    },{
+        "type": "function",
+        "function":{
+            "name":"clone_repo",
+            "description":"This function will take the input url and clone the repository from the url",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "url":{
+                        "type":"string",
+                        "description":"The url in the prompt"
+                    }
+            },  
+            "additionalProperties": False,
+            "required": ["url"]
+            }    
+        }
+    },
+    {
+        "type":"function",
+        "function":{
+            "name":"run_query",
+            "description":"This function will take the input query and database file path as input and run the query on the database",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "query":{
+                        "type":"string",
+                        "description":"The query in the prompt"
+                    },
+                    "database":{
+                        "type":"string",
+                        "description":"The database file path in the prompt"
+                    },
+                    "db_type":{
+                        "type":"string",
+                        "enum": ["sqlite3", "duckdb"],
+                        "description":"The database type in the prompt"
+                    }
+            },
+            "additionalProperties": False,
+            "required": ["query","database","db_type"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function":{
+            "name":"scrape",
+            "description":"This function will take the input url and file path as input and scrape the url and write the content to the file, however the filepath is optional",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "url":{
+                        "type":"string",
+                        "description":"The url in the prompt"
+                    },
+                    "file_path":{
+                        "type":"string",
+                        "description":"Optional file path to save the scraped content, return an empty string if not provided"
+                    }
+            },              
+            "additionalProperties": False,
+            "required": ["url","file_path"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function":{
+            "name":"comp_resize_image",
+            "description":"This function will take the input file path and output file path as input and compress and resize the image",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "inputfile":{
+                        "type":"string",
+                        "description":"The path to the input image"
+                    },
+                    "outputfile":{
+                        "type":"string",
+                        "description":"The path to the output image"
+                    }
+            }, 
+            "additionalProperties": False,
+            "required": ["inputfile","outputfile"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function":{
+            "name":"transcribe_audio",
+            "description":"This function will take the input mp3 file path and output file and write the transcription of the audio to the output file",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "mp3_path":{
+                        "type":"string",
+                        "description":"The path to the input mp3 file"
+                    },
+                    "outputfile":{
+                        "type":"string",
+                        "description":"The path to the output file"
+                    }
+            },
+            "additionalProperties": False,  
+            "required": ["mp3_path","outputfile"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function":{
+            "name":"convert_md_html",
+            "description":"This function will take the input markdown file path and output file path as input and convert the markdown file to html",
+            "parameters":{
+                "type":"object",
+                "properties":{
+                    "md_file":{
+                        "type":"string",
+                        "description":"The path to the input markdown file"
+                    },
+                    "html_file":{
+                        "type":"string",
+                        "description":"The path to the output html file"
+                    }
+            },
+            "additionalProperties": False,
+            "required": ["md_file","html_file"]
+            }
+        }
     }
 ]   

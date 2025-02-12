@@ -15,7 +15,6 @@ def create_data(path,email):
     
 def format_data(path,version):
     file_path ='.'+path  
-    print(file_path)
     subprocess.run('npx prettier@{version} --write {path}'.format(version=version,path=file_path),shell=True,check=True)
     original=open(file_path).read()
     expected = subprocess.run(
@@ -26,7 +25,6 @@ def format_data(path,version):
         check=True,
         shell=True,
     ).stdout
-    print(expected)
 
 
 def count_weekday_occurrences(input_file, output_file, target_day):
@@ -72,8 +70,8 @@ def write_recent_first_lines(input_dir, output_file, num_files):
             print(f"Error reading file {file_path}: {e}")
     try:
         with open(output_file, 'w', encoding='utf-8') as out_file:
-            for line in first_lines:
-                out_file.write(line + '\n')
+            expected = "".join([f+"\n" for f in first_lines])
+            out_file.write(expected)
     except Exception as e:
         print(f"Error writing to file {output_file}: {e}")
 
@@ -104,7 +102,7 @@ def generate_markdown_index(directory, output_file):
                     for line in f:
                         match = re.match(r"^#\s+(.+)", line)  # Find first H1 heading
                         if match:
-                            index[relative_path] = match.group()
+                            index[relative_path] = (match.group()).lstrip("# ")
                             break  # Stop after first H1
     
     with open(output_file, "w", encoding="utf-8") as f:
@@ -136,7 +134,7 @@ def similar_comments(inputfile,outputfile):
     for i in range(n):
         payload = {"input": comments[i],"model": "text-embedding-3-small"}
         response = requests.post(url, headers=headers, json=payload)
-        vecs.append(response.json()["data"][0]["embedding"])
+        vecs.append(np.array(response.json()["data"][0]["embedding"]))
     for i in range(n):
         for j in range(n):
             if i!=j:

@@ -6,11 +6,18 @@
 #   "fastapi.responses",
 #   "python-dateutil",
 #   "requests",
-#   "numpy"
+#   "numpy",
+#   "duckdb",
+#    "bs4",
+#    "Pillow",
+#    "pydub",
+#    "speech_recognition"
+#    "ffmpeg-python"
+#    "markdown"
 # ]
 # ///
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse,PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from resp import send_request
 from exec import execute
@@ -24,18 +31,14 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-@app.get("/read")
+@app.get("/read",response_class=PlainTextResponse)
 async def get_data(path:str):
     path='.'+path
     try:
         with open(path, "r", encoding="utf-8") as file:
             content = file.read()
             content = "".join(content.splitlines()).strip()
-        try:
-            op=eval(content)
-            return op
-        except:
-            return content
+        return content
         #try:
         #    op=eval(content)
         #    return JSONResponse(content=op, status_code=200)
@@ -48,8 +51,11 @@ async def get_data(path:str):
    
 @app.post("/run")
 async def post_data(task:str):
-    func,args=send_request(task)
-    execute(func,args)
+    func,args,message=send_request(task)
+    if not message:
+        execute(func,args)
+    else:
+        return JSONResponse(content={"message":"bad request"}, status_code=400)
     return JSONResponse(content={"func": func,"args":args}, status_code=200)
 
 
