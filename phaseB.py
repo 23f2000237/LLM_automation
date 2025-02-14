@@ -83,3 +83,4 @@ def convert_md_html(md_file, html_file):
     html = markdown.markdown(md)
     with open(html_file, "w", encoding="utf-8") as file:
         file.write(html)
+    print(html)

@@ -266,7 +266,7 @@ funtion_tools=[
                     }
             },
             "additionalProperties": False,
-            "required": ["url","save_path"]
+            "required": ["url","save_path","parameters"]
             }
         }
     },{

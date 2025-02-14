@@ -11,7 +11,7 @@ import sqlite3
 from resp import url,headers
 def create_data(path,email):
     print(path)
-    subprocess.run(['uv','run',path,email,'--root','./data'],capture_output=True, text=True, check=True)  
+    subprocess.run(['uv','run',path,email],capture_output=True, text=True, check=True)  
     
 def format_data(path,version):
     file_path ='.'+path  

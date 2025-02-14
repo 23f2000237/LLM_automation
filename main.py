@@ -11,9 +11,8 @@
 #    "bs4",
 #    "Pillow",
 #    "pydub",
-#    "speech_recognition"
-#    "ffmpeg-python"
-#    "markdown"
+#    "SpeechRecognition",
+#    "markdown",
 # ]
 # ///
 from fastapi import FastAPI, Request
@@ -33,7 +32,6 @@ app.add_middleware(
 
 @app.get("/read",response_class=PlainTextResponse)
 async def get_data(path:str):
-    path='.'+path
     try:
         with open(path, "r", encoding="utf-8") as file:
             content = file.read()
@@ -47,7 +45,7 @@ async def get_data(path:str):
     #except Exception as e: 
     #    return JSONResponse(content={"error": str(e)}, status_code=500)
     except Exception as e:
-        return JSONResponse(content={"error": str(e)}, status_code=500)
+        return JSONResponse(content={"error": str(e)}, status_code=404)
    
 @app.post("/run")
 async def post_data(task:str):
@@ -56,10 +54,10 @@ async def post_data(task:str):
         execute(func,args)
     else:
         return JSONResponse(content={"message":"bad request"}, status_code=400)
-    return JSONResponse(content={"func": func,"args":args}, status_code=200)
+    return JSONResponse(content={"message":"ok"}, status_code=200)
 
 
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="debug")
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="debug")
